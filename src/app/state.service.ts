@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { startWith, scan, shareReplay } from 'rxjs/operators';
 
 export interface MyState {
   counter: number;
@@ -12,16 +13,20 @@ export interface MyState {
 })
 export class StateService {
 
-  private state: MyState = {
+  private initialState: MyState = {
     counter: 0,
     anotherProperty: 'foobar'
   };
 
-  state$ = new BehaviorSubject<MyState>(this.state);
+  private messages$ = new Subject<string>();
+  state$ = this.messages$.pipe(
+    startWith('INIT'),
+    scan(this.calculateState, this.initialState),
+    shareReplay(1)
+  );
 
   dispatch(message: string) {
-    this.state = this.calculateState(this.state, message);
-    this.state$.next(this.state);
+    this.messages$.next(message);
   }
 
   private calculateState(state: MyState, message: string): MyState {

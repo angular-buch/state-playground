@@ -20,7 +20,11 @@ export class StateService {
   state$ = new BehaviorSubject<MyState>(this.state);
 
   incrementCounter() {
-    this.state.counter++;
+    this.state = {
+      ...this.state,
+      counter: this.state.counter + 1
+    };
+
     this.state$.next(this.state);
   }
 }

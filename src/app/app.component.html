@@ -1,5 +1,5 @@
 <div class="counter">
-  {{ service.state.counter }}
+  {{ counter$ | async }}
 </div>
 
 <button (click)="service.incrementCounter()">Increment</button>

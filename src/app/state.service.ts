@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface MyState {
   counter: number;
@@ -11,12 +12,15 @@ export interface MyState {
 })
 export class StateService {
 
-  state: MyState = {
+  private state: MyState = {
     counter: 0,
     anotherProperty: 'foobar'
   };
 
+  state$ = new BehaviorSubject<MyState>(this.state);
+
   incrementCounter() {
     this.state.counter++;
+    this.state$.next(this.state);
   }
 }

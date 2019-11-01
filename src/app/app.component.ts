@@ -15,4 +15,9 @@ export class AppComponent {
   );
 
   constructor(public service: StateService) {}
+
+
+  increment() {
+    this.service.dispatch('INCREMENT');
+  }
 }

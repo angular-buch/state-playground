@@ -27,4 +27,11 @@ export class StateService {
 
     this.state$.next(this.state);
   }
+
+
+  dispatch(message: string) {
+    switch (message) {
+      case 'INCREMENT': return this.incrementCounter();
+    }
+  }
 }

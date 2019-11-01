@@ -20,4 +20,12 @@ export class AppComponent {
   increment() {
     this.service.dispatch('INCREMENT');
   }
+
+  decrement() {
+    this.service.dispatch('DECREMENT');
+  }
+
+  reset() {
+    this.service.dispatch('RESET');
+  }
 }
